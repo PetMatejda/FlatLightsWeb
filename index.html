@@ -977,52 +977,258 @@
 
   <!-- ══ SPECS ══════════════════════════════════════════ -->
   <section id="specs">
+    <style>
+      /* ── Panel builder visual ── */
+      .modular-configs {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        margin-top: 3rem;
+      }
+      .mod-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3px;
+        background: var(--border);
+      }
+      .mod-visual {
+        background: var(--black);
+        padding: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+      }
+      .mod-info {
+        background: var(--black);
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .mod-name {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        line-height: 1;
+      }
+      .mod-specs {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .mod-spec-row {
+        display: flex;
+        gap: 0.75rem;
+        align-items: baseline;
+        font-size: 0.82rem;
+        color: #777;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .mod-spec-val {
+        color: #ccc;
+        font-weight: 500;
+      }
+      .mod-spec-val.orange { color: var(--orange); font-weight: 600; }
+      .mod-mount {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-top: 0.25rem;
+      }
+      .mod-mount span {
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #666;
+        border: 1px solid #333;
+        padding: 0.25rem 0.6rem;
+      }
+
+      /* ── Panel grid drawing ── */
+      .panel-grid {
+        display: grid;
+        gap: 4px;
+      }
+      .panel-cell {
+        position: relative;
+        background: #111;
+        border: 1px solid #2a2a2a;
+        overflow: hidden;
+      }
+      /* LED strip lines inside each panel */
+      .panel-cell::before,
+      .panel-cell::after {
+        content: '';
+        position: absolute;
+        left: 18%;
+        right: 18%;
+        height: 2px;
+        background: rgba(245,166,35,0.55);
+        border-radius: 1px;
+        box-shadow: 0 0 8px 2px rgba(245,166,35,0.3);
+      }
+      .panel-cell::before { top: 28%; }
+      .panel-cell::after  { bottom: 28%; }
+      /* Active/highlighted cell */
+      .panel-cell.lit {
+        background: #181510;
+        border-color: rgba(245,166,35,0.35);
+        box-shadow: inset 0 0 20px rgba(245,166,35,0.06);
+      }
+      .panel-cell.lit::before,
+      .panel-cell.lit::after {
+        background: rgba(245,166,35,0.9);
+        box-shadow: 0 0 12px 3px rgba(245,166,35,0.5);
+      }
+
+      /* ── Custom / infinite row ── */
+      .mod-row-custom .mod-visual {
+        gap: 4px;
+        flex-wrap: wrap;
+        position: relative;
+      }
+      .custom-label {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+      }
+      .custom-label span {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--orange);
+        opacity: 0.9;
+        letter-spacing: -0.02em;
+      }
+      .mod-row-custom .panel-grid {
+        opacity: 0.25;
+      }
+
+      @media (max-width: 768px) {
+        .mod-row { grid-template-columns: 1fr; }
+        .mod-visual { min-height: 160px; padding: 2rem; }
+        .mod-info { padding: 2rem; }
+      }
+    </style>
+
     <div class="container">
       <div class="specs-header" data-aos="fade-up">
         <p class="label">Technical Specifications</p>
-        <h2 class="h-big">Models & <span class="accent">Power.</span></h2>
+        <h2 class="h-big">Build any <span class="accent">configuration.</span></h2>
       </div>
-      <div class="specs-table-wrap" data-aos="fade-up" data-aos-delay="100">
-        <table>
-          <thead>
-            <tr>
-              <th>Model</th>
-              <th>Size</th>
-              <th>Power (per color ch.)</th>
-              <th>LED Type</th>
-              <th>Mount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="td-model">Flat Light 4×4</td>
-              <td>4 × 4 ft &nbsp;<span style="color:var(--muted);font-size:0.8rem;">≈ 120 × 120 cm</span></td>
-              <td class="td-power">300 – 500 W</td>
-              <td><span class="badge">RGBWW</span></td>
-              <td>Tripod / Rope</td>
-            </tr>
-            <tr>
-              <td class="td-model">Flat Light 4×8</td>
-              <td>4 × 8 ft &nbsp;<span style="color:var(--muted);font-size:0.8rem;">≈ 120 × 240 cm</span></td>
-              <td class="td-power">600 – 1 000 W</td>
-              <td><span class="badge">RGBWW</span></td>
-              <td>Tripod / Rope / Crane</td>
-            </tr>
-            <tr>
-              <td class="td-model">Flat Light 8×8</td>
-              <td>8 × 8 ft &nbsp;<span style="color:var(--muted);font-size:0.8rem;">≈ 240 × 240 cm</span></td>
-              <td class="td-power">1 200 – 2 000 W</td>
-              <td><span class="badge">RGBWW</span></td>
-              <td>Rope / Crane</td>
-            </tr>
-            <tr>
-              <td class="td-model" colspan="5" style="color:var(--muted);font-size:0.82rem;font-family:'Inter',sans-serif;font-weight:300;text-transform:none;">
-                Custom sizes available — panels scale in 4-foot increments. Contact us to configure your array.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    </div>
+
+    <!-- unit legend -->
+    <div class="container" style="margin-bottom:1.5rem;" data-aos="fade-up">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div style="width:32px;height:16px;background:#181510;border:1px solid rgba(245,166,35,0.35);position:relative;flex-shrink:0;">
+          <div style="position:absolute;left:15%;right:15%;top:calc(50% - 1px);height:2px;background:rgba(245,166,35,0.9);box-shadow:0 0 6px 2px rgba(245,166,35,0.4);"></div>
+        </div>
+        <span style="font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#555;">= one panel unit · 4×2 ft · 2.5 kg · 250 W · RGBWW</span>
       </div>
+    </div>
+
+    <div class="modular-configs" data-aos="fade-up" data-aos-delay="80">
+
+      <!-- 4×4 = 2 panels (1 col × 2 rows) -->
+      <div class="mod-row">
+        <div class="mod-visual">
+          <div class="panel-grid" style="grid-template-columns: repeat(1, 80px); grid-template-rows: repeat(2, 40px);">
+            <div class="panel-cell lit"></div>
+            <div class="panel-cell lit"></div>
+          </div>
+        </div>
+        <div class="mod-info">
+          <div class="mod-name">Flat Light <span class="accent">4×4</span></div>
+          <div class="mod-specs">
+            <div class="mod-spec-row">Size <span class="mod-spec-val">4 × 4 ft &nbsp;<span style="color:#444">≈ 120 × 120 cm</span></span></div>
+            <div class="mod-spec-row">Panels <span class="mod-spec-val">2 units</span></div>
+            <div class="mod-spec-row">Power <span class="mod-spec-val orange">300 – 500 W / color ch.</span></div>
+            <div class="mod-spec-row">LED <span class="mod-spec-val"><span class="badge">RGBWW</span></span></div>
+          </div>
+          <div class="mod-mount">
+            <span>Tripod</span><span>Rope</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4×8 = 4 panels (2 cols × 2 rows) -->
+      <div class="mod-row">
+        <div class="mod-visual">
+          <div class="panel-grid" style="grid-template-columns: repeat(2, 80px); grid-template-rows: repeat(2, 40px);">
+            <div class="panel-cell lit"></div><div class="panel-cell lit"></div>
+            <div class="panel-cell lit"></div><div class="panel-cell lit"></div>
+          </div>
+        </div>
+        <div class="mod-info">
+          <div class="mod-name">Flat Light <span class="accent">4×8</span></div>
+          <div class="mod-specs">
+            <div class="mod-spec-row">Size <span class="mod-spec-val">4 × 8 ft &nbsp;<span style="color:#444">≈ 120 × 240 cm</span></span></div>
+            <div class="mod-spec-row">Panels <span class="mod-spec-val">4 units</span></div>
+            <div class="mod-spec-row">Power <span class="mod-spec-val orange">600 – 1 000 W / color ch.</span></div>
+            <div class="mod-spec-row">LED <span class="mod-spec-val"><span class="badge">RGBWW</span></span></div>
+          </div>
+          <div class="mod-mount">
+            <span>Tripod</span><span>Rope</span><span>Crane</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8×8 = 8 panels (2 cols × 4 rows) -->
+      <div class="mod-row">
+        <div class="mod-visual">
+          <div class="panel-grid" style="grid-template-columns: repeat(2, 80px); grid-template-rows: repeat(4, 40px);">
+            <div class="panel-cell lit"></div><div class="panel-cell lit"></div>
+            <div class="panel-cell lit"></div><div class="panel-cell lit"></div>
+            <div class="panel-cell lit"></div><div class="panel-cell lit"></div>
+            <div class="panel-cell lit"></div><div class="panel-cell lit"></div>
+          </div>
+        </div>
+        <div class="mod-info">
+          <div class="mod-name">Flat Light <span class="accent">8×8</span></div>
+          <div class="mod-specs">
+            <div class="mod-spec-row">Size <span class="mod-spec-val">8 × 8 ft &nbsp;<span style="color:#444">≈ 240 × 240 cm</span></span></div>
+            <div class="mod-spec-row">Panels <span class="mod-spec-val">8 units</span></div>
+            <div class="mod-spec-row">Power <span class="mod-spec-val orange">1 200 – 2 000 W / color ch.</span></div>
+            <div class="mod-spec-row">LED <span class="mod-spec-val"><span class="badge">RGBWW</span></span></div>
+          </div>
+          <div class="mod-mount">
+            <span>Rope</span><span>Crane</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom = ∞ -->
+      <div class="mod-row mod-row-custom">
+        <div class="mod-visual" style="position:relative;">
+          <div class="panel-grid" style="grid-template-columns: repeat(4, 80px); grid-template-rows: repeat(4, 40px);">
+            <div class="panel-cell lit"></div><div class="panel-cell lit"></div><div class="panel-cell lit"></div><div class="panel-cell lit"></div>
+            <div class="panel-cell lit"></div><div class="panel-cell lit"></div><div class="panel-cell lit"></div><div class="panel-cell lit"></div>
+            <div class="panel-cell lit"></div><div class="panel-cell lit"></div><div class="panel-cell lit"></div><div class="panel-cell lit"></div>
+            <div class="panel-cell lit"></div><div class="panel-cell lit"></div><div class="panel-cell lit"></div><div class="panel-cell lit"></div>
+          </div>
+          <div class="custom-label"><span>∞</span></div>
+        </div>
+        <div class="mod-info">
+          <div class="mod-name">Custom <span class="accent">Array</span></div>
+          <div class="mod-specs">
+            <div class="mod-spec-row">Scale <span class="mod-spec-val">4-foot increments — any W × H</span></div>
+            <div class="mod-spec-row">Panels <span class="mod-spec-val">as many as you need</span></div>
+            <div class="mod-spec-row">Power <span class="mod-spec-val orange">250 W × number of panels</span></div>
+          </div>
+          <div class="mod-mount" style="margin-top:0.75rem;">
+            <span style="border-color:rgba(245,166,35,0.3);color:var(--orange);font-size:0.72rem;padding:0.4rem 1rem;">Configure your array →</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
