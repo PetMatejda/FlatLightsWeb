@@ -469,6 +469,43 @@
     .gal-10 { grid-column: 1 / 6;  grid-row: 5 / 6; }
     .gal-11 { grid-column: 6 / 13; grid-row: 5 / 6; }
 
+    /* ── LIGHTBOX ─────────────────────────────────────── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(0,0,0,0.92);
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox-media {
+      max-width: 92vw;
+      max-height: 92vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 0 60px rgba(0,0,0,0.8);
+      cursor: default;
+    }
+    #lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 26px;
+      color: #fff;
+      font-size: 2.2rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      background: none;
+      border: none;
+      padding: 4px 10px;
+    }
+    #lightbox-close:hover { opacity: 1; }
+    .gal-item { cursor: pointer; }
+
     /* ── COLOR ENGINE ─────────────────────────────────── */
     #color-engine {
       padding: 120px 0;
@@ -1373,6 +1410,12 @@
   </footer>
 
   <!-- AOS -->
+  <!-- Lightbox overlay -->
+  <div id="lightbox">
+    <button id="lightbox-close" aria-label="Close">&#x2715;</button>
+    <img id="lightbox-media" src="" alt="" />
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     // ── Init AOS ──
@@ -1390,6 +1433,51 @@
       const y = window.scrollY;
       heroBg.style.transform = `scale(1.05) translateY(${y * 0.15}px)`;
     });
+
+    // ── Lightbox ──
+    const lightbox = document.getElementById('lightbox');
+    const lbMedia = document.getElementById('lightbox-media');
+    let lbVideo = null;
+
+    function openLightbox(item) {
+      const video = item.querySelector('video');
+      const img = item.querySelector('img');
+      // Remove previous video if any
+      if (lbVideo) { lbVideo.remove(); lbVideo = null; }
+      if (video) {
+        lbMedia.style.display = 'none';
+        lbVideo = document.createElement('video');
+        lbVideo.id = 'lightbox-media';
+        lbVideo.autoplay = true;
+        lbVideo.muted = true;
+        lbVideo.loop = true;
+        lbVideo.playsInline = true;
+        lbVideo.controls = true;
+        lbVideo.style.cssText = lbMedia.style.cssText + 'max-width:92vw;max-height:92vh;object-fit:contain;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,0.8);cursor:default;';
+        lbVideo.innerHTML = video.innerHTML;
+        lightbox.appendChild(lbVideo);
+      } else {
+        lbMedia.src = img.src;
+        lbMedia.alt = img.alt;
+        lbMedia.style.display = '';
+      }
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lbMedia.src = '';
+      if (lbVideo) { lbVideo.remove(); lbVideo = null; }
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.gal-item').forEach(item => {
+      item.addEventListener('click', () => openLightbox(item));
+    });
+    document.getElementById('lightbox-close').addEventListener('click', e => { e.stopPropagation(); closeLightbox(); });
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
     // ── Form submit placeholder ──
     function handleSubmit(e) {
