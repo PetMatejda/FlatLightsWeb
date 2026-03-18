@@ -1453,7 +1453,12 @@
         lbVideo.loop = true;
         lbVideo.playsInline = true;
         lbVideo.controls = true;
-        lbVideo.style.cssText = lbMedia.style.cssText + 'max-width:92vw;max-height:92vh;object-fit:contain;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,0.8);cursor:default;';
+        lbVideo.style.maxWidth = '92vw';
+        lbVideo.style.maxHeight = '92vh';
+        lbVideo.style.objectFit = 'contain';
+        lbVideo.style.borderRadius = '4px';
+        lbVideo.style.boxShadow = '0 0 60px rgba(0,0,0,0.8)';
+        lbVideo.style.display = 'block';
         lbVideo.innerHTML = video.innerHTML;
         lightbox.appendChild(lbVideo);
       } else {
