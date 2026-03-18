@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flat Light — Balloon Light Praha</title>
+  <meta name="description" content="Ultra-lightweight flat LED panels for film, photography and outdoor production. 6-color RGBWW engine. Modular. Built to go anywhere." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- AOS (scroll animations) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+  <style>
+    /* ── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #f5a623;
+      --teal:   #00c9c8;
+      --black:  #0a0a0a;
+      --card:   #141414;
+      --border: #222;
+      --muted:  #777;
+      --white:  #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Typography helpers ───────────────────────────── */
+    .label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .h-giant {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+    .h-big {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .h-med {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .body-text {
+      font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+      font-weight: 300;
+      line-height: 1.75;
+      color: #bbb;
+    }
+    .accent { color: var(--orange); }
+    .teal   { color: var(--teal); }
+
+    /* ── Layout ───────────────────────────────────────── */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 5vw;
+    }
+    section { padding: 100px 0; }
+
+    /* ── NAV ──────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.2rem 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aaa;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--orange);
+      color: var(--black) !important;
+      padding: 0.55rem 1.4rem;
+      font-weight: 600 !important;
+      color: var(--black);
+    }
+    .nav-cta:hover { background: #ffc045 !important; color: var(--black) !important; }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('assets/images/hero.png') center center / cover no-repeat;
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,10,10,0.3) 0%,
+        rgba(10,10,10,0.1) 40%,
+        rgba(10,10,10,0.85) 80%,
+        rgba(10,10,10,1) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 5vw 8vh;
+      max-width: 900px;
+    }
+    .hero-content .label { margin-bottom: 1.5rem; }
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(5rem, 14vw, 11rem);
+      font-weight: 900;
+      line-height: 0.88;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+    .hero-title .line2 { color: var(--orange); }
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 300;
+      color: #ccc;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+    .hero-actions {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #ffc045; transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.07); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 3rem;
+      right: 5vw;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hero-scroll span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #666;
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--orange), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ── STATS BAR ────────────────────────────────────── */
+    .stats-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2.5rem 5vw;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .stat {
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ── INTRO / OVERVIEW ─────────────────────────────── */
+    #overview {
+      padding: 120px 0;
+    }
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .overview-img {
+      position: relative;
+    }
+    .overview-img img {
+      width: 100%;
+      object-fit: contain;
+    }
+    .overview-img::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle at center, rgba(245,166,35,0.1) 0%, transparent 70%);
+      z-index: -1;
+    }
+    .overview-text .label { margin-bottom: 1.5rem; }
+    .overview-text .h-big { margin-bottom: 1.5rem; }
+    .overview-text .body-text { margin-bottom: 2rem; }
+    .feature-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .chip {
+      padding: 0.45rem 1rem;
+      border: 1px solid var(--border);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ccc;
+      background: var(--card);
+    }
+    .chip.active {
+      border-color: var(--orange);
+      color: var(--orange);
+      background: rgba(245,166,35,0.07);
+    }
+
+    /* ── FEATURES ─────────────────────────────────────── */
+    #features {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .features-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+    .features-header .label { margin-bottom: 1rem; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .feature-card {
+      background: var(--black);
+      padding: 3rem 2.5rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .feature-card:hover {
+      border-color: var(--orange);
+      transform: translateY(-4px);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      color: var(--orange);
+    }
+    .feature-icon svg { width: 24px; height: 24px; }
+    .feature-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .feature-card p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #888;
+    }
+
+    /* ── USE CASES ────────────────────────────────────── */
+    #usecases { padding: 120px 0; }
+    .usecases-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+    .usecases-header .label { margin-bottom: 1rem; }
+    .usecases-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+    .usecase {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .usecase img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .usecase:hover img { transform: scale(1.05); }
+    .usecase-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.1) 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem;
+    }
+    .usecase-tag {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      margin-bottom: 0.75rem;
+      align-self: flex-start;
+    }
+    .usecase-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .usecase-desc {
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-top: 0.6rem;
+    }
+
+    /* ── GALLERY ──────────────────────────────────────── */
+    #gallery {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 100px 0;
+    }
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .gallery-header .label { margin-bottom: 1rem; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 300px 300px;
+      gap: 3px;
+    }
+    .gal-item { overflow: hidden; }
+    .gal-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease, filter 0.3s;
+      filter: brightness(0.85);
+    }
+    .gal-item:hover img { transform: scale(1.06); filter: brightness(1); }
+    .gal-1 { grid-column: 1 / 6; grid-row: 1 / 2; }
+    .gal-2 { grid-column: 6 / 10; grid-row: 1 / 2; }
+    .gal-3 { grid-column: 10 / 13; grid-row: 1 / 3; }
+    .gal-4 { grid-column: 1 / 4; grid-row: 2 / 3; }
+    .gal-5 { grid-column: 4 / 7; grid-row: 2 / 3; }
+    .gal-6 { grid-column: 7 / 10; grid-row: 2 / 3; }
+
+    /* ── COLOR ENGINE ─────────────────────────────────── */
+    #color-engine {
+      padding: 120px 0;
+      overflow: hidden;
+    }
+    .color-engine-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .color-text .label { margin-bottom: 1.5rem; }
+    .color-text .h-big { margin-bottom: 1.5rem; }
+    .color-text .body-text { margin-bottom: 2rem; }
+    .color-swatches {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .swatch {
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .color-preview {
+      position: relative;
+    }
+    .color-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+    .color-images .ci {
+      overflow: hidden;
+      aspect-ratio: 1;
+    }
+    .color-images .ci img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .color-images .ci:hover img { transform: scale(1.05); }
+
+    /* ── SPECS ────────────────────────────────────────── */
+    #specs {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      padding: 120px 0;
+    }
+    .specs-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .specs-header .label { margin-bottom: 1rem; }
+    .specs-table-wrap {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th {
+      background: var(--black);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 1.2rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 1.4rem 1.5rem;
+      font-size: 0.95rem;
+      color: #ccc;
+      border-bottom: 1px solid var(--border);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(245,166,35,0.03); }
+    .td-model {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .td-power { color: var(--orange); font-weight: 500; }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      background: rgba(245,166,35,0.12);
+      border: 1px solid rgba(245,166,35,0.3);
+      color: var(--orange);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── OUTDOOR CTA ──────────────────────────────────── */
+    #outdoor {
+      position: relative;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 0;
+    }
+    .outdoor-bg {
+      position: absolute;
+      inset: 0;
+      background: url('assets/images/outdoor-crane.jpg') center center / cover no-repeat;
+    }
+    .outdoor-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.3) 100%);
+    }
+    .outdoor-content {
+      position: relative;
+      z-index: 2;
+      padding: 8rem 5vw;
+      max-width: 650px;
+    }
+    .outdoor-content .label { margin-bottom: 1.5rem; }
+    .outdoor-content .h-big { margin-bottom: 1.5rem; }
+    .outdoor-content .body-text { margin-bottom: 2.5rem; }
+
+    /* ── CONTACT ──────────────────────────────────────── */
+    #contact { padding: 120px 0; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+    }
+    .contact-info .label { margin-bottom: 1.5rem; }
+    .contact-info .h-big { margin-bottom: 1.5rem; }
+    .contact-info .body-text { margin-bottom: 2.5rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--orange);
+    }
+    .contact-item-icon svg { width: 18px; height: 18px; }
+    .contact-item-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    .contact-item-value {
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+    .contact-item-value a:hover { color: var(--orange); }
+
+    /* Contact Form */
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-field label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 0.9rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus { border-color: var(--orange); }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: #444; }
+    .form-field select option { background: var(--card); }
+
+    /* ── FOOTER ───────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .footer-logo span { color: var(--orange); }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── Divider line ─────────────────────────────────── */
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--orange);
+      margin: 1.5rem 0;
+    }
+
+    /* ── Responsive ───────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .overview-grid,
+      .color-engine-inner,
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:nth-child(2n) { border-right: none; }
+      .usecases-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 70px 0; }
+      .features-grid { grid-template-columns: 1fr; }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .gal-1, .gal-2, .gal-3, .gal-4, .gal-5, .gal-6 {
+        grid-column: auto;
+        grid-row: auto;
+      }
+      .gallery-grid .gal-item { aspect-ratio: 4/3; }
+      .nav-links { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .color-images { grid-template-columns: 1fr 1fr; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAV ══════════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-logo">Balloon <span>Light</span> Praha</div>
+    <ul class="nav-links">
+      <li><a href="#overview">Product</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#specs">Specs</a></li>
+      <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ HERO ══════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-content">
+      <p class="label">Balloon Light Praha — Flat Light Series</p>
+      <h1 class="hero-title">
+        <span class="line1">LIGHTING</span><br>
+        <span class="line2">ANYWHERE.</span>
+      </h1>
+      <p class="hero-sub">The ultra-lightweight flat LED panel. Heavy-duty performance — even in the mud.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Request a Quote</a>
+        <a href="#overview" class="btn-outline">Discover More</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ══ STATS BAR ══════════════════════════════════════ -->
+  <div class="stats-bar" data-aos="fade-up">
+    <div class="stat">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Color Channels (RGBWW)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2kW</div>
+      <div class="stat-label">Max Power per Color</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Modular Scalability</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">IP65</div>
+      <div class="stat-label">Outdoor Ready</div>
+    </div>
+  </div>
+
+  <!-- ══ OVERVIEW ══════════════════════════════════════ -->
+  <section id="overview">
+    <div class="container">
+      <div class="overview-grid">
+        <div class="overview-img" data-aos="fade-right" data-aos-duration="800">
+          <img src="assets/images/product-unit.png" alt="Flat Light panel unit" />
+        </div>
+        <div class="overview-text" data-aos="fade-left" data-aos-duration="800" data-aos-delay="100">
+          <p class="label">The Product</p>
+          <h2 class="h-big">Flat Light<br><span class="accent">Redefined.</span></h2>
+          <div class="divider"></div>
+          <p class="body-text">
+            Our Flat Lights are ultra-lightweight and slim, built with a unique foldable aluminium construction for effortless transport. Mount them on a tripod, hang them from ropes, or crane them 30 metres in the air — they perform flawlessly anywhere.
+          </p>
+          <p class="body-text">
+            Panels can be assembled into any custom dimension — both width and height are modular in 4-foot increments, scaling from a compact 4×4 ft unit to massive multi-panel arrays covering entire studios or outdoor scenes.
+          </p>
+          <div class="feature-chips">
+            <span class="chip active">RGBWW 6-Color</span>
+            <span class="chip active">Foldable Frame</span>
+            <span class="chip">Tripod Mount</span>
+            <span class="chip">Crane Mountable</span>
+            <span class="chip">Modular Sizing</span>
+            <span class="chip">Outdoor Rated</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FEATURES ══════════════════════════════════════ -->
+  <section id="features">
+    <div class="container">
+      <div class="features-header" data-aos="fade-up">
+        <p class="label">Why Flat Light</p>
+        <h2 class="h-big">Built for<br><span class="accent">Professionals.</span></h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>Ultra Lightweight</h3>
+          <p>Foldable aluminium extrusion frame makes each panel a fraction of the weight of conventional fixtures — easy for small crews to handle.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="80">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          </div>
+          <h3>6-Color RGBWW Engine</h3>
+          <p>Full spectrum control — from clean daylight to warm tungsten, creative colour effects, and everything in between, all from one fixture.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="160">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="1"/>
+              <path d="M8 21h8m-4-4v4"/>
+            </svg>
+          </div>
+          <h3>Infinite Scalability</h3>
+          <p>Panels tile seamlessly in 4-foot multiples. Create a compact 4×4 ft source or a cinema-scale 24×16 ft soft-light ceiling — with no gaps.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="240">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3>Outdoor Ready</h3>
+          <p>Rugged enough for crane deployment in winter snow, summer rain, and everything in between. Heavy-duty performance that doesn't quit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ USE CASES ══════════════════════════════════════ -->
+  <section id="usecases">
+    <div class="container">
+      <div class="usecases-header" data-aos="fade-up">
+        <p class="label">Where It Works</p>
+        <h2 class="h-big">Studio.<br><span class="accent">Field. Anywhere.</span></h2>
+      </div>
+    </div>
+    <div class="usecases-grid">
+      <div class="usecase" data-aos="fade-right">
+        <img src="assets/images/studio-white.jpg" alt="Flat Light in studio — large soft ceiling" />
+        <div class="usecase-overlay">
+          <span class="usecase-tag">Indoor</span>
+          <h3 class="usecase-title">Film & Photo Studio</h3>
+          <p class="usecase-desc">Giant soft-light ceilings for automotive shoots, fashion, and episodic TV.</p>
+        </div>
+      </div>
+      <div class="usecase" data-aos="fade-left">
+        <img src="assets/images/outdoor-crane.jpg" alt="Flat Light mounted on crane outdoors" />
+        <div class="usecase-overlay">
+          <span class="usecase-tag">Outdoor</span>
+          <h3 class="usecase-title">Crane & Location</h3>
+          <p class="usecase-desc">Lightweight enough to fly at height. Tough enough for rain, mud and snow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GALLERY ══════════════════════════════════════ -->
+  <section id="gallery">
+    <div class="container">
+      <div class="gallery-header" data-aos="fade-up">
+        <p class="label">Gallery</p>
+        <h2 class="h-big">In <span class="accent">Action.</span></h2>
+      </div>
+    </div>
+    <div class="gallery-grid" data-aos="fade-up" data-aos-delay="100">
+      <div class="gal-item gal-1">
+        <img src="assets/images/studio-car.jpg" alt="Car photography with Flat Light" />
+      </div>
+      <div class="gal-item gal-2">
+        <img src="assets/images/studio-setup.jpg" alt="Studio setup with Flat Light panels" />
+      </div>
+      <div class="gal-item gal-3">
+        <img src="assets/images/color-purple.jpg" alt="Purple lighting with Flat Light" />
+      </div>
+      <div class="gal-item gal-4">
+        <img src="assets/images/color-red.jpg" alt="Red lighting with Flat Light" />
+      </div>
+      <div class="gal-item gal-5">
+        <img src="assets/images/led-detail.jpg" alt="Flat Light LED engine detail" />
+      </div>
+      <div class="gal-item gal-6">
+        <img src="assets/images/collage.jpg" alt="Flat Light overview collage" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ COLOR ENGINE ══════════════════════════════════ -->
+  <section id="color-engine">
+    <div class="container">
+      <div class="color-engine-inner">
+        <div class="color-text" data-aos="fade-right">
+          <p class="label">6-Color RGBWW Engine</p>
+          <h2 class="h-big">Every Colour.<br><span class="accent">One Light.</span></h2>
+          <div class="divider"></div>
+          <p class="body-text">
+            The Flat Light's proprietary 6-channel LED engine delivers full RGB colour mixing alongside warm-white and cool-white channels. Dial in any Kelvin value, punch bold creative colours, or blend hues across massive panel arrays — all fully DMX-controllable.
+          </p>
+          <div class="color-swatches">
+            <div class="swatch" style="background:#ff3030;"></div>
+            <div class="swatch" style="background:#ff8c00;"></div>
+            <div class="swatch" style="background:#ffef00;"></div>
+            <div class="swatch" style="background:#39ff14;"></div>
+            <div class="swatch" style="background:#00bfff;"></div>
+            <div class="swatch" style="background:#8a2be2;"></div>
+            <div class="swatch" style="background:#ffffff;"></div>
+            <div class="swatch" style="background:#ffe4b5;"></div>
+          </div>
+        </div>
+        <div class="color-preview" data-aos="fade-left" data-aos-delay="100">
+          <div class="color-images">
+            <div class="ci">
+              <img src="assets/images/color-purple.jpg" alt="Purple light on car" />
+            </div>
+            <div class="ci">
+              <img src="assets/images/color-red.jpg" alt="Red light on car" />
+            </div>
+            <div class="ci">
+              <img src="assets/images/studio-white.jpg" alt="White light panel" />
+            </div>
+            <div class="ci">
+              <img src="assets/images/studio-car.jpg" alt="Natural light car shoot" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SPECS ══════════════════════════════════════════ -->
+  <section id="specs">
+    <div class="container">
+      <div class="specs-header" data-aos="fade-up">
+        <p class="label">Technical Specifications</p>
+        <h2 class="h-big">Models & <span class="accent">Power.</span></h2>
+      </div>
+      <div class="specs-table-wrap" data-aos="fade-up" data-aos-delay="100">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Size</th>
+              <th>Power (per color ch.)</th>
+              <th>LED Type</th>
+              <th>Mount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-model">Flat Light 4×4</td>
+              <td>4 × 4 ft &nbsp;<span style="color:var(--muted);font-size:0.8rem;">≈ 120 × 120 cm</span></td>
+              <td class="td-power">300 – 500 W</td>
+              <td><span class="badge">RGBWW</span></td>
+              <td>Tripod / Rope</td>
+            </tr>
+            <tr>
+              <td class="td-model">Flat Light 4×8</td>
+              <td>4 × 8 ft &nbsp;<span style="color:var(--muted);font-size:0.8rem;">≈ 120 × 240 cm</span></td>
+              <td class="td-power">600 – 1 000 W</td>
+              <td><span class="badge">RGBWW</span></td>
+              <td>Tripod / Rope / Crane</td>
+            </tr>
+            <tr>
+              <td class="td-model">Flat Light 8×8</td>
+              <td>8 × 8 ft &nbsp;<span style="color:var(--muted);font-size:0.8rem;">≈ 240 × 240 cm</span></td>
+              <td class="td-power">1 200 – 2 000 W</td>
+              <td><span class="badge">RGBWW</span></td>
+              <td>Rope / Crane</td>
+            </tr>
+            <tr>
+              <td class="td-model" colspan="5" style="color:var(--muted);font-size:0.82rem;font-family:'Inter',sans-serif;font-weight:300;text-transform:none;">
+                Custom sizes available — panels scale in 4-foot increments. Contact us to configure your array.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ OUTDOOR CTA ═══════════════════════════════════ -->
+  <section id="outdoor">
+    <div class="outdoor-bg"></div>
+    <div class="outdoor-content" data-aos="fade-right">
+      <p class="label">Now Outdoors</p>
+      <h2 class="h-big">The ultra-lightweight<br><span class="accent">magic.</span></h2>
+      <p class="body-text">Crane it. Fly it. Hang it. Deploy it in the snow at midnight on a remote location. Flat Light was built to go where no conventional fixture can.</p>
+      <a href="#contact" class="btn-primary">Talk to Us</a>
+    </div>
+  </section>
+
+  <!-- ══ CONTACT ══════════════════════════════════════ -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info" data-aos="fade-right">
+          <p class="label">Get In Touch</p>
+          <h2 class="h-big">Let's light<br><span class="accent">your project.</span></h2>
+          <div class="divider"></div>
+          <p class="body-text">Whether you need a single 4×4 panel or a massive multi-unit outdoor installation, we'll configure the right solution for your production.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact-item-label">Email</div>
+                <div class="contact-item-value"><a href="mailto:info@balloonlightprag.cz">info@balloonlightprag.cz</a></div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.72A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.65a16 16 0 006.44 6.44l1.01-1.02a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact-item-label">Phone</div>
+                <div class="contact-item-value"><a href="tel:+420603452130">+420 603 452 130</a></div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact-item-label">Studio</div>
+                <div class="contact-item-value">Za Zástávkou 377/3, Hala 6<br>109 00 Praha-Dolní Měcholupy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-aos="fade-left" data-aos-delay="100">
+          <form class="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-field">
+                <label>First Name</label>
+                <input type="text" placeholder="Jana" required />
+              </div>
+              <div class="form-field">
+                <label>Last Name</label>
+                <input type="text" placeholder="Novák" required />
+              </div>
+            </div>
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" placeholder="you@production.com" required />
+            </div>
+            <div class="form-field">
+              <label>Production / Company</label>
+              <input type="text" placeholder="Your production company" />
+            </div>
+            <div class="form-field">
+              <label>Interested In</label>
+              <select>
+                <option value="">Select a model...</option>
+                <option>Flat Light 4×4</option>
+                <option>Flat Light 4×8</option>
+                <option>Flat Light 8×8</option>
+                <option>Custom Array / Multiple Units</option>
+                <option>Not sure — I need advice</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Message</label>
+              <textarea rows="5" placeholder="Tell us about your project..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="align-self:flex-start;border:none;cursor:pointer;">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══════════════════════════════════════ -->
+  <footer>
+    <div class="footer-logo">Balloon <span>Light</span> Praha</div>
+    <ul class="footer-links">
+      <li><a href="https://www.balloonlightprag.cz" target="_blank">Main Website</a></li>
+      <li><a href="#overview">Product</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="footer-copy">© 2025 Balloon Light Praha s.r.o. &nbsp;|&nbsp; IČ: 28006739</div>
+  </footer>
+
+  <!-- AOS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    // ── Init AOS ──
+    AOS.init({ duration: 700, easing: 'ease-out', once: true, offset: 60 });
+
+    // ── Sticky nav ──
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // ── Hero parallax ──
+    const heroBg = document.getElementById('heroBg');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      heroBg.style.transform = `scale(1.05) translateY(${y * 0.15}px)`;
+    });
+
+    // ── Form submit placeholder ──
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = '#2ecc71';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
