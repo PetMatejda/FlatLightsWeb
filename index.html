@@ -482,7 +482,7 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: repeat(5, 320px);
+      grid-template-rows: repeat(6, 320px);
       gap: 3px;
     }
     .gal-item { overflow: hidden; }
@@ -507,6 +507,9 @@
     .gal-9  { grid-column: 7 / 13; grid-row: 4 / 5; }
     .gal-10 { grid-column: 1 / 6;  grid-row: 5 / 6; }
     .gal-11 { grid-column: 6 / 13; grid-row: 5 / 6; }
+    .gal-12 { grid-column: 1 / 5;  grid-row: 6 / 7; }
+    .gal-13 { grid-column: 5 / 8;  grid-row: 6 / 7; }
+    .gal-14 { grid-column: 8 / 13; grid-row: 6 / 7; }
 
     /* ── LIGHTBOX ─────────────────────────────────────── */
     #lightbox {
@@ -811,7 +814,8 @@
         grid-template-rows: auto;
       }
       .gal-1, .gal-2, .gal-3, .gal-4, .gal-5,
-      .gal-6, .gal-7, .gal-8, .gal-9, .gal-10, .gal-11 {
+      .gal-6, .gal-7, .gal-8, .gal-9, .gal-10, .gal-11,
+      .gal-12, .gal-13, .gal-14 {
         grid-column: auto;
         grid-row: auto;
       }
@@ -1032,6 +1036,15 @@
       </div>
       <div class="gal-item gal-11">
         <img src="assets/images/hero.png" alt="Flat Light — Lighting Anywhere" />
+      </div>
+      <div class="gal-item gal-12">
+        <img src="assets/images/outdoor-blue-crane.jpg" alt="Flat Light array on crane above film set" />
+      </div>
+      <div class="gal-item gal-13">
+        <img src="assets/images/outdoor-blue-pole.jpg" alt="Flat Light panel array on pole — worm's eye view" />
+      </div>
+      <div class="gal-item gal-14">
+        <img src="assets/images/outdoor-sunset.jpg" alt="Flat Light panels at golden hour outdoor shoot" />
       </div>
     </div>
   </section>
