@@ -284,50 +284,56 @@
     }
     .overview-img {
       position: relative;
+      overflow: hidden;
     }
     .overview-img img {
       width: 100%;
       object-fit: contain;
-      /* slight softening to wash out fine construction details */
-      filter: brightness(1.08) contrast(0.82) blur(0.6px) saturate(0.9);
+      /* crush to near-black metallic silhouette — zero internal detail readable */
+      filter: brightness(0.07) contrast(3) saturate(0.15);
     }
-    /* ambient back-glow behind the panel */
+    /* deep orange aura behind the panel — breathing */
     .overview-img::before {
       content: '';
       position: absolute;
-      inset: -40px;
-      background: radial-gradient(ellipse 70% 80% at 50% 55%,
-        rgba(245,166,35,0.18) 0%, transparent 70%);
+      inset: -60px;
+      background: radial-gradient(ellipse 55% 72% at 50% 54%,
+        rgba(245,120,10,0.28) 0%,
+        rgba(245,166,35,0.10) 50%,
+        transparent 72%);
       z-index: -1;
+      animation: auraBreath 5s ease-in-out infinite;
     }
-    /* "powered on" glow overlay — hides internal details, looks cinematic */
+    /* diagonal spotlight sweep — premium product reveal effect */
     .overview-img::after {
       content: '';
       position: absolute;
-      inset: 0;
-      /* bright white core → orange halo → transparent edges */
-      background:
-        radial-gradient(ellipse 38% 55% at 50% 52%,
-          rgba(255,255,240,0.72) 0%,
-          rgba(245,166,35,0.55) 28%,
-          rgba(245,120,10,0.22) 55%,
-          transparent 75%),
-        /* subtle vertical light-strip lines that echo LED bars */
-        repeating-linear-gradient(
-          90deg,
-          transparent 0px,
-          transparent 28px,
-          rgba(245,166,35,0.06) 30px,
-          transparent 32px
-        );
+      top: -40px; bottom: -40px;
+      left: 0; right: 0;
+      background: linear-gradient(
+        112deg,
+        transparent 0%,
+        rgba(245,166,35,0.04) 22%,
+        rgba(255,245,210,0.55) 38%,
+        rgba(255,255,240,0.80) 50%,
+        rgba(255,245,210,0.55) 62%,
+        rgba(245,166,35,0.04) 78%,
+        transparent 100%
+      );
+      transform: translateX(-130%) skewX(-12deg);
       mix-blend-mode: screen;
       pointer-events: none;
-      border-radius: 2px;
-      animation: panelGlow 3.8s ease-in-out infinite;
+      animation: spotSweep 7s cubic-bezier(0.4,0,0.6,1) infinite;
     }
-    @keyframes panelGlow {
-      0%, 100% { opacity: 0.82; }
-      50%       { opacity: 1;    }
+    @keyframes auraBreath {
+      0%, 100% { opacity: 0.55; transform: scale(1);    }
+      50%       { opacity: 1;    transform: scale(1.06); }
+    }
+    @keyframes spotSweep {
+      0%, 12%  { transform: translateX(-130%) skewX(-12deg); opacity: 0; }
+      16%       { opacity: 1; }
+      62%       { transform: translateX(230%)  skewX(-12deg); opacity: 1; }
+      63%, 100% { transform: translateX(230%)  skewX(-12deg); opacity: 0; }
     }
     .overview-text .label { margin-bottom: 1.5rem; }
     .overview-text .h-big { margin-bottom: 1.5rem; }
