@@ -288,13 +288,46 @@
     .overview-img img {
       width: 100%;
       object-fit: contain;
+      /* slight softening to wash out fine construction details */
+      filter: brightness(1.08) contrast(0.82) blur(0.6px) saturate(0.9);
     }
+    /* ambient back-glow behind the panel */
     .overview-img::before {
       content: '';
       position: absolute;
-      inset: -20px;
-      background: radial-gradient(circle at center, rgba(245,166,35,0.1) 0%, transparent 70%);
+      inset: -40px;
+      background: radial-gradient(ellipse 70% 80% at 50% 55%,
+        rgba(245,166,35,0.18) 0%, transparent 70%);
       z-index: -1;
+    }
+    /* "powered on" glow overlay — hides internal details, looks cinematic */
+    .overview-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /* bright white core → orange halo → transparent edges */
+      background:
+        radial-gradient(ellipse 38% 55% at 50% 52%,
+          rgba(255,255,240,0.72) 0%,
+          rgba(245,166,35,0.55) 28%,
+          rgba(245,120,10,0.22) 55%,
+          transparent 75%),
+        /* subtle vertical light-strip lines that echo LED bars */
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          transparent 28px,
+          rgba(245,166,35,0.06) 30px,
+          transparent 32px
+        );
+      mix-blend-mode: screen;
+      pointer-events: none;
+      border-radius: 2px;
+      animation: panelGlow 3.8s ease-in-out infinite;
+    }
+    @keyframes panelGlow {
+      0%, 100% { opacity: 0.82; }
+      50%       { opacity: 1;    }
     }
     .overview-text .label { margin-bottom: 1.5rem; }
     .overview-text .h-big { margin-bottom: 1.5rem; }
