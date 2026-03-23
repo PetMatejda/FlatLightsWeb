@@ -685,8 +685,9 @@
     #contact { padding: 120px 0; }
     .contact-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      max-width: 600px;
     }
     .contact-info .label { margin-bottom: 1.5rem; }
     .contact-info .h-big { margin-bottom: 1.5rem; }
@@ -1372,13 +1373,24 @@
             <div class="contact-item">
               <div class="contact-item-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"/>
+                </svg>
+              </div>
+              <div>
+                <div class="contact-item-label">Website</div>
+                <div class="contact-item-value"><a href="https://www.balloonlightprag.cz" target="_blank">www.balloonlightprag.cz</a></div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                   <polyline points="22,6 12,13 2,6"/>
                 </svg>
               </div>
               <div>
                 <div class="contact-item-label">Email</div>
-                <div class="contact-item-value"><a href="mailto:info@balloonlightprag.cz">info@balloonlightprag.cz</a></div>
+                <div class="contact-item-value"><a href="mailto:marekradolf@seznam.cz">marekradolf@seznam.cz</a></div>
               </div>
             </div>
             <div class="contact-item">
@@ -1405,46 +1417,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div data-aos="fade-left" data-aos-delay="100">
-          <form class="contact-form" onsubmit="handleSubmit(event)">
-            <div class="form-row">
-              <div class="form-field">
-                <label>First Name</label>
-                <input type="text" placeholder="Jana" required />
-              </div>
-              <div class="form-field">
-                <label>Last Name</label>
-                <input type="text" placeholder="Novák" required />
-              </div>
-            </div>
-            <div class="form-field">
-              <label>Email</label>
-              <input type="email" placeholder="you@production.com" required />
-            </div>
-            <div class="form-field">
-              <label>Production / Company</label>
-              <input type="text" placeholder="Your production company" />
-            </div>
-            <div class="form-field">
-              <label>Interested In</label>
-              <select>
-                <option value="">Select a model...</option>
-                <option>Flat Light 4×4</option>
-                <option>Flat Light 4×8</option>
-                <option>Flat Light 8×8</option>
-                <option>Custom Array / Multiple Units</option>
-                <option>Not sure — I need advice</option>
-              </select>
-            </div>
-            <div class="form-field">
-              <label>Message</label>
-              <textarea rows="5" placeholder="Tell us about your project..."></textarea>
-            </div>
-            <button type="submit" class="btn-primary" style="align-self:flex-start;border:none;cursor:pointer;">
-              Send Message
-            </button>
-          </form>
         </div>
       </div>
     </div>
