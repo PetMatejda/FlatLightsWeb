@@ -1,0 +1,25 @@
+{
+  "name": "flat-lights-web",
+  "version": "1.0.0",
+  "description": "Flat Light - Balloon Light Praha website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PetMatejda/FlatLightsWeb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PetMatejda/FlatLightsWeb/issues"
+  },
+  "homepage": "https://github.com/PetMatejda/FlatLightsWeb#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
